@@ -98,10 +98,11 @@ public class CSVUtilTest {
                     player.name = player.name.toUpperCase(Locale.ROOT);
                     return player;
                 })
+                .sort((p,w)->(w.winners-w.games)-(p.winners-p.games))
                 .collectMultimap(Player::getNational);
         listFilter.block().forEach((national, players) -> {
             System.out.println("\n"+national);
-            players.stream().sorted((p,w)->(w.winners-w.games)-(p.winners-p.games)).forEach(p -> System.out.println(p.name + "- Partidos ganados: " +p.winners+" "+ p.games));
+            players.stream().forEach(p -> System.out.println(p.name + "- Partidos ganados: " +p.winners+" "+ p.games));
         });
     }
 
